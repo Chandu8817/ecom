@@ -1,0 +1,148 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <div class="form-group">
+
+            <label for="title">Title</label>
+            <input type="text" class="form-control" name="title" id="title" aria-describedby="helpId"
+                placeholder="title">
+
+        </div>
+        <div class="form-group">
+            <label for="desc">Description</label>
+            <textarea class="form-control" name="desc" id="desc" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="cate">Category</label>
+            <select class="form-control" name="cate" id="cate">
+                {% for cate in category %}
+                <option>{{ cate.name }}</option>
+
+                {% endfor %}
+
+            </select>
+        </div>
+
+        <div class="form-group">
+
+            <label for="image_file" class="btn btn-primary btn-sm">
+                Add Product</label>
+            <input type="file" name="files[]" class="form-control-file" id="image_file" multiple
+                onchange="showFile(this)" style="display: none;">
+    <div class="gallery"></div>
+
+
+        </div>
+
+
+
+
+
+        <div class="form-group">
+            <label for=""></label>
+            <input type="number" class="form-control" name="price" id="price" aria-describedby="helpId"
+                placeholder="price" value="10">
+
+        </div>
+
+        <input type="submit" value="submit" id="submit-btn">
+    </div>
+
+
+
+</form>
+
+{% block js %}
+<script>
+
+    $(function() {
+        // Multiple images preview in browser
+        var imagesPreview = function(input, placeToInsertImagePreview) {
+    
+            if (input.files) {
+                var filesAmount = input.files.length;
+    
+                for (i = 0; i < filesAmount; i++) {
+                    var reader = new FileReader();
+    
+                    reader.onload = function(event) {
+                        $($.parseHTML('<img width = "300px">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                    }
+    
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+    
+        };
+    
+        $('#image_file').on('change', function() {
+            imagesPreview(this, 'div.gallery');
+        });
+    });
+
+  
+    var queue = [];
+    var formData = new FormData();
+
+    function showFile(input) {
+        let file = input.files[0];
+          
+
+        //alert(`File name: ${file.name}`); // e.g my.png
+        //alert(`Last modified: ${file.lastModified}`); // e.g 1552830408824
+        queue.push(file.name);
+        console.log("the file", file)
+        if (queue.length > 1)
+            formData.append("file", file);
+        else {
+            $.each($("#image_file")[0].files, function (i, file) {
+                console.log("file", file)
+                formData.append("file", file);
+            });
+        }
+
+    }
+
+    console.log(queue)
+
+    $(document).on('click', '#submit-btn', function (e) {
+        e.preventDefault();
+
+        formData.append('title', $('#title').val());
+        formData.append('desc', $('#desc').val());
+        formData.append('cate', $('#cate').val());
+        formData.append('price', $('#price').val());
+        formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "create_products" %}',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                alert('done')
+            },
+        });
+    });
+
+</script>
+<script>
+    var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+</script>
+{% endblock js %}
+
+{% endblock %}

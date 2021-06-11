@@ -1,0 +1,35 @@
+{% extends 'products/base.html' %}
+
+{% block content %} 
+<form id="gphotos-form" enctype="multipart/form-data">
+    <input type="file" name="pictures_array[]" multiple accept="image/*" id="page_pictures_array" />
+    <button type="submit">Submit</button>
+  </form>
+
+{% block js %}
+<script>
+    $('.page-form #page_pictures_array').change(function(evt) {
+        var file, files, reader, _i, _len;
+        files = evt.target.files;
+        console.log(files);
+        $('#file-list').empty();
+        for (_i = 0, _len = files.length; _i < _len; _i++) {
+          file = files[_i];
+          reader = new window.FileReader;
+          reader.onload = (function(file) {
+            return function(e) {
+              var src;
+              src = e.target.result;
+              return $("<li>" + file.name + " - " + file.size + " bytes</li>").prepend($('<img/>', {
+                src: src,
+                "class": 'thumb'
+              })).appendTo($('#file-list'));
+            };
+          })(file);
+          reader.readAsDataURL(file);
+        }
+      });
+</script>
+{% endblock js %}
+
+{% endblock %}

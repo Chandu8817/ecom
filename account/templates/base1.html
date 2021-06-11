@@ -1,0 +1,127 @@
+<html lang="en">
+  {% load static %}
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/header.css' %}"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+    {% block header %}
+    <header>
+      <div class="tb">
+        <div class="td" id="logo">
+          <a href="#"><i class="fab fa-facebook-square"></i></a>
+        </div>
+        <div class="td" id="search-form">
+          <form>
+            <!-- {% csrf_token %} -->
+            <input
+              type="text"
+              placeholder="Search Facebook"
+              name="search_name"
+              id="search-box"
+              required
+            />
+          </form>
+        </div>
+
+        <div class="box stack-top" id="suggesstion-box"></div>
+
+        <div class="td" id="i-links">
+          <div class="tb">
+            <div class="td" id="m-td">
+              <div class="tb">
+                <span class="td"><i class="material-icons">person_add</i></span>
+                <span class="td"
+                  ><i class="material-icons">chat_bubble</i></span
+                >
+                <span class="td m-active"
+                  ><i class="material-icons">notifications</i></span
+                >
+              </div>
+            </div>
+            <div class="td">
+              <a href="#" id="p-link">
+                {% if profile %}
+                <img src="{{ profile.profile_pic.url }}" />
+                {% endif %}
+              </a>
+            </div>
+            <div class="td">
+              <div class="btn-group">
+                <button
+                  class="btn btn-primary-outline btn-sm dropdown-toggle"
+                  type="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  {{profile.user.username}}
+                </button>
+                <div class="dropdown-menu">
+                  <a
+                    class="btn btn-sm btn-primary dropdown-item"
+                    role="button"
+                    href="{% url 'logout' %}"
+                    >logout
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    {% endblock%}
+  </body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#search-box").keyup(function () {
+        var mydata = {
+          search: $(this).val(),
+        };
+        $.ajax({
+          type: "GET",
+          url: "{% url 'search' %}",
+          data: mydata,
+          beforeSend: function () {
+            $("#search-box").css(
+              " url(https://phppot.com/demo/jquery-ajax-autocomplete-country-example/loaderIcon.gif) no-repeat 165px"
+            );
+          },
+
+          success: function (response) {
+            if (response.searchname != "") {
+              $("#suggesstion-box").html(response);
+            } else {
+              $("#suggesstion-box").remove(response);
+            }
+          },
+        });
+      });
+    });
+  </script>
+
+  
+</html>

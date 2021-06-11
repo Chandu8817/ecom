@@ -1,0 +1,78 @@
+
+{% extends 'base.html' %}
+{% block accountcontent %}
+    {% include 'result.html' %}
+
+<div class="container login-container">
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+<br>
+
+
+<!-- login form errors -->
+{% if login_form.errors %}
+    {% for field in login_form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in login_form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+            <div class="row">
+                <div class="col-md-6 login-form-2">
+                    <h3>Login for Form 2</h3>
+                    <form method="POST" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Username *"  name="username" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Your Password *"  name="password" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btnSubmit" value="Login" />
+                        </div>
+                        <div class="form-group">
+
+                            <a href="#" class="ForgetPwd" value="Login">Forget Password?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+{% endblock %}
+
+{#                <div class="col-md-6 login-form-1">#}
+{#                    <h3>Login for Form 1</h3>#}
+{#                    <form>#}
+{#                        <div class="form-group">#}
+{#                            <input type="text" class="form-control" placeholder="Your Email *" value="" />#}
+{#                        </div>#}
+{#                        <div class="form-group">#}
+{#                            <input type="password" class="form-control" placeholder="Your Password *" value="" />#}
+{#                        </div>#}
+{#                        <div class="form-group">#}
+{#                            <input type="submit" class="btnSubmit" value="Login" />#}
+{#                        </div>#}
+{#                        <div class="form-group">#}
+{#                            <a href="#" class="ForgetPwd">Forget Password?</a>#}
+{#                        </div>#}
+{#                    </form>#}
+{#                </div>#}

@@ -1,0 +1,218 @@
+*{
+    outline: none;
+  }
+  
+ 
+  body, input, button
+  {
+    font-family: Helvetica;
+  }
+  
+
+  
+  .tb
+  {
+    display: table;
+    width: 100%;
+  }
+  
+  .tr
+  {
+    display: table-row;
+  }
+  
+  .td
+  {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  
+  a
+  {
+    text-decoration: none;
+  }
+  
+  
+  
+  button
+  {
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+  }
+  
+  ::placeholder
+  {
+    color: #f1f1f1;
+  }
+  
+  main
+  {
+    width: 1280px;
+    margin: 0 auto;
+    background-color: #e9ebee;
+    box-shadow: 0px 8px 30px #1d2d4f;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  #device-bar-1
+  {
+    text-align: right;
+    padding: 6px;
+    background-color: #000;
+    overflow: hidden;
+  }
+  
+  #device-bar-1 button
+  {
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  #device-bar-1 button:first-child
+  {
+    background-color: #f35d5b;
+  }
+  
+  #device-bar-1 button:nth-child(2)
+  {
+    background-color: #f6bd3a;
+  }
+  
+  #device-bar-1 button:last-child
+  {
+    background-color: #44cc45;
+  }
+  
+  /* Header */
+  header
+  {
+    padding: 15px 20px;
+    background-color: #4267b2;
+  }
+  
+  #logo
+  {
+    width: 30px;
+  }
+  
+  #logo a
+  {
+    display: block;
+  }
+  
+  #logo a i
+  {
+    font-size: 34px;
+    color: #fff;
+  }
+  
+  #search-form form
+  {
+    position: relative;
+    width: 280px;
+    font-size: 16px;
+    padding: 8px 15px;
+    padding-right: 37px;
+    background-color: #3b5ca0;
+    border-radius: 20px;
+    margin-left: 15px;
+  }
+  
+  #search-form form input
+  {
+    width: 100%;
+    color: #fff;
+    border: 0;
+    background-color: transparent;
+  }
+  
+  #search-form form button
+  {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    color: #f1f1f1;
+    height: 22px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  
+  #search-form form button i
+  {
+    font-size: 22px;
+  }
+  
+  #f-name-l
+  {
+    width: 1px;
+    color: #fff;
+    font-weight: bold;
+    white-space: pre;
+    padding-right: 20px;
+  }
+  
+  #f-name-l span
+  {
+    padding-right: 28px;
+    border-right: 1px solid #35518b;
+  }
+  
+  #i-links
+  {
+    width: 1px;
+  }
+  
+  #m-td
+  {
+    padding-right: 20px;
+  }
+  
+  #m-td span
+  {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  #m-td span.m-active:before
+  {
+    content: '5';
+    position: absolute;
+    top: -8px;
+    right: 0px;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 4px 3px 4px;
+    background-color: #ff1e0e;
+    border-radius: 3px;
+    line-height: 1;
+  }
+  
+  #i-links i
+  {
+    color: #fff;
+    font-size: 24px;
+    padding: 0px 8px;
+    vertical-align: middle;
+  }
+  
+  #p-link
+  {
+    display: block;
+    width: 34px;
+    height: 34px;
+    background-color: #f1f1f1;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  #p-link img
+  {
+    width: 100%;
+  }
+  

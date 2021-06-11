@@ -1,0 +1,116 @@
+{% extends "products/base.html" %} {% block content %}
+<div class="container">
+  
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    {% for obj in products %} {% if forloop.first %}
+    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}" class="active"></li>
+    {% else %}
+    <li data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}"></li>
+
+    {% endif %} {% endfor %}
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    {% for obj in products %} {% if forloop.first %}
+    <div class="carousel-item active">
+      {% else %}
+      <div class="carousel-item">
+        {% endif %} {% with product_image=obj.product_images.first %}
+
+        <img class="d-block" class="h-50 d-inline-block" src="{{ product_image.image.url }}" alt="{{obj.title}}" />
+
+        {% endwith %}
+      </div>
+
+      {% endfor %}
+    </div>
+
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+</div>
+<div class="container mt-4">
+  
+<div class="row">
+  <div class="col-lg-8 mx-auto">
+    <!-- List group-->
+    <ul class="list-group shadow">
+      <!-- list group item-->
+
+      {% for product in page_obj %}
+      <li class="list-group-item">
+        <!-- Custom content-->
+        <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+          <div class="media-body order-2 order-lg-1">
+            <h5 class="mt-0 font-weight-bold mb-2">
+              <a href="{% url 'detail_products' product.id %}">{{ product.name }}</a>
+            </h5>
+            <p class="font-italic text-muted mb-0 small">
+              {{ product.description }}
+            </p>
+            <div class="d-flex align-items-center justify-content-between mt-1">
+              <h6 class="font-weight-bold my-2">₹ {{ product.price }}</h6>
+              <ul class="list-inline small">
+                <li class="list-inline-item m-0">
+                  <i class="fa fa-star text-success"></i>
+                </li>
+                <li class="list-inline-item m-0">
+                  <i class="fa fa-star text-success"></i>
+                </li>
+                <li class="list-inline-item m-0">
+                  <i class="fa fa-star text-success"></i>
+                </li>
+                <li class="list-inline-item m-0">
+                  <i class="fa fa-star text-success"></i>
+                </li>
+                <li class="list-inline-item m-0">
+                  <i class="fa fa-star-o text-gray"></i>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {% with product_image=product.product_images.first %}
+          <img src="{{ product_image.image.url }}" alt="Generic placeholder image" width="200"
+            class="ml-lg-5 order-1 order-lg-2 productlist-img" />
+
+          {% endwith %}
+        </div>
+        <!-- End -->
+      </li>
+      <!-- End -->
+      <br />
+      {% endfor %}
+    </ul>
+    <div class="pagination">
+      <span class="step-links mb-4">
+        {% if page_obj.has_previous %}
+        <a class="btn btn-danger btn-sm" href="?page=1">&laquo; first</a>
+        <a class="btn btn-danger btn-sm" href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %} {% if page_obj.has_next %}
+        <a class="btn btn-danger btn-sm" href="?page={{ page_obj.next_page_number }}">next</a>
+        <a class="btn btn-danger btn-sm" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+
+        {% endif %}
+
+        <span class="current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+</div>
+
+
+{% endblock %}
+
+

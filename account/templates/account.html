@@ -1,0 +1,74 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+<link href="{% static 'css/profile.css' %}">
+
+{% block content %}
+
+    <br>
+
+
+
+    <div class="row p-1">
+  <div class="col-sm-4 border p-2 ">
+      <div class=" card ">
+
+
+          <h1>Account Details</h1>
+          <br>
+  <img class="p-2 " src="{{ user.userprofile.profile_pic.url }}" alt="John" style="width:50%; border-radius: 100%">
+  <br>
+  <h3><b>{{ user.username }}</b></h3>
+  <p class="title">{{ user.email }}</p>
+  <p>{{ user.userprofile.gender }}</p>
+  <div style="margin: 24px 0;">
+    <a href="https://www.linkedin.com/in/md-abu-talha/" target="_blank"><i class="fa fa-linkedin"></i></a>
+    <a href="https://www.facebook.com/talha.sust.cse" target="_blank"><i class="fa fa-facebook"></i></a>
+    <a href="https://github.com/talha08" target="_blank"><i class="fa fa-github"></i></a>
+    <a href="https://medium.com/@talhaqc" target="_blank"><i class="fa fa-medium"></i></a>
+  </div>
+  <p><a href="talha08.github.io" class="button">Edit Profile </a></p>
+
+</div>
+
+  </div>
+  <div class="col-sm-8">
+      <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">order Id</th>
+      <th scope="col">Product</th>
+      <th scope="col">Price</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for order in orders %}
+    <tr>
+      <th scope="row"> {{ order.order_id }}</th>
+      <td>{{ order.product }}</td>
+      <td>{{ order.amount }}</td>
+        {% if order.orderStatus == False %}
+      <td class="text-warning">Pending</td>
+      {% elif order.cancelStatus == True %}
+      <td class="text-danger">Canceled</td>
+         {% else %}
+       <td class="text-success">Deliverd</td>
+
+    {% endif %}
+
+
+
+
+
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+  </div>
+</div>
+
+
+{% endblock %}
+

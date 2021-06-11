@@ -1,0 +1,210 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block content %}
+
+
+<!-- login form errors -->
+{% if login_form.errors %}
+    {% for field in login_form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in login_form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+  <div id="navwrapper">
+    <div id="navbar">
+      <table class="tablewrapper">
+        <tr>
+          <td class="row1">Email or Phone</td>
+          <td class="row1">Password</td>
+        </tr>
+        <form method="POST" action="{% url 'home'%}">
+          {% csrf_token %}
+          <tr>
+            <td> {{ login_form.username }}
+            
+            </td>
+            <td>
+              {{ login_form.password }}
+              {{ login_form.password.errors }}
+            </td>
+
+            <td><button id="button" type="submit">Log In</button></td>
+          </tr>
+        </form>
+
+        <tr>
+          <td>
+
+            <div class="row2"><input type="checkbox" checked>Keep me logged in</div>
+          </td>
+          <td class="row2 h">Forgot your password?</td>
+      </table>
+    
+
+
+      <h1 class="logowrapper">facebook</h1>
+
+    </div>
+  </div>
+
+  <div id="contentwrapper">
+    <div id="content">
+
+      <div id="leftbod">
+
+        <div class="connect bolder">
+          Connect with friends and the
+          world around you on Facebook.</div>
+
+        <div class="leftbar">
+          <img
+            src="https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xap1/t39.2365-6/851565_602269956474188_918638970_n.png"
+            alt="" class="iconwrap fb1" />
+          <div class="fb1">
+            <span class="rowtext">See photos and updates</span>
+            <span class="rowtext2 fb1">from friends in News Feed</span>
+          </div>
+        </div>
+
+        <div class="leftbar">
+          <img
+            src="https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xap1/t39.2365-6/851585_216271631855613_2121533625_n.png"
+            alt="" class="iconwrap fb1" />
+          <div class="fb1">
+            <span class="rowtext">Share what's new</span>
+            <span class="rowtext2 fb1">in your life on your timeline</span>
+          </div>
+        </div>
+
+        <div class="leftbar">
+          <img
+            src="https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xap1/t39.2365-6/851558_160351450817973_1678868765_n.png "
+            alt="" class="iconwrap fb1" />
+          <div class="fb1">
+            <span class="rowtext">Find more</span>
+            <span class="rowtext2 fb1">of what you're looking for with graph search</span>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div id="rightbod">
+        <div class="signup bolder">Sign Up</div>
+        <div class="free bolder">It's free and always will be</div>
+
+
+    <!-- user_form errors -->
+        {% if user_form.errors %}
+        {% for field in user_form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in user_form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+<!-- profile form errors -->
+    {% if profile_form.errors %}
+    {% for field in profile_form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in profile_form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+        <form method="POST" action="/account/signup/">
+          {% csrf_token %}
+
+
+          <div class="formbox">
+            {{ user_form.username }}
+          </div>
+          <div class="formbox">
+            {{ user_form.first_name }}
+          </div>
+
+          <div class="formbox">
+            {{ user_form.last_name }}
+          </div>
+
+          <div class="formbox">
+            {{ user_form.email }}
+          </div>
+
+          <div class="formbox">         
+            {{ user_form.password1 }}
+          </div>
+          <div class="formbox">
+          
+            {{ user_form.password2 }}
+
+
+          </div>
+
+          <div class="formbox">
+            {{ profile_form.dob }}
+            <div class="fb1 why h">Why do I need to provide my birthday?</div>
+          </div>
+
+          <!-- <div class="formbox">
+            {{ profile_form.profile_pic }}
+            <div class="fb1 why h">Why do I need to provide my birthday?</div>
+          </div> -->
+          <div class="formbox mt1">
+            <span data-type="radio" class="spanpad">
+              {{ profile_form.gender }}
+
+
+            </span>
+          </div>
+          <div class="formbox">
+
+
+            <div class="agree">
+              By clicking Sign Up, you agree to our <div class="link">Terms</div> and that you have read our <div
+                class="link">Data Use Policy</div>, including our <div class="link">Cookie Use</div>.
+            </div>
+          </div>
+          <div class="formbox">
+            <button type="submit" class="signbut bolder">Sign Up</button>
+          </div>
+          <div class="formbox">
+            <div class="create">
+              <div class="link h">Create a Page</div> for a celebrity, band or business.
+            </div>
+          </div>
+
+          
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  {% endblock %}
+

@@ -1,0 +1,118 @@
+{% load has_group %}
+
+<nav class="navbar">
+    <i class="material-icons menu-icon">
+        menu
+    </i>
+    <div class="logo">
+
+        <img src="https://github.com/subeshb1/GrabCheap/blob/master/img/logo_inverse.jpg?raw=true" alt="logo">
+        <div class="text">  <a style="color: #FFFFFF; text-decoration: none "  href="{% url 'list_products' %}">RishiBaba ki dukan</a>
+        </div>
+    </div>
+    <div class="item search right" tabindex="0">
+        <div class="search-group">
+            <select id="category-id">
+                <option value="">all</option>
+                {% for category in categories %}
+                    <option value="{{ category.name }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" placeholder="Search Prdoucts" name="search_name" id="search-box" required>
+            <i class="material-icons search-icon">
+                search
+            </i>
+        </div>
+    </div>
+
+    <div class="box stack-top" id="suggesstion-box">
+
+    </div>
+
+
+    <a href="" class="item">
+        <!-- Default dropleft button -->
+        <div class="dropdown show">
+            <a class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="material-icons">shopping_cart</span>
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                {% for item in cart_item %}
+                    {% if item %}
+                        <div class="dropdown-item detail">
+                            <a href="{% url 'check_out' %}"> <i>{{ item.product }} </i></a>
+                            <br>
+                            <form method="GET" action="{% url 'remove_from_cart' %}">
+
+                                <input type="hidden" value="{{ item.id }}" name="cart_id">
+                                <button type="submit" class="btn-danger">X</button>
+                            </form>
+
+
+                        </div>
+
+
+
+                    {% endif %}
+                {% endfor %}
+            {% if cart_item  %}
+
+                {% else %}
+
+                <div class="dropdown-item text-danger "> your cart is empty  </div>
+
+            {% endif %}
+
+
+            </div>
+        </div>
+
+    </a>
+    <a href="" class="  item">
+        <div></div>
+        <a/>
+        <a href="" class="  item">
+
+            <div class="group  ">
+                {% if  request.user.is_authenticated %}
+                    <div class="dropdown show">
+                        <a class=" btn btn-warning dropdown-toggle " href="#" role="button" id="dropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ user.username }} <a href="{% url 'profile' %}"> <img
+                                src="{{ user.userprofile.profile_pic.url }}" width="50px"> </a>
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            
+
+                            {% if request.user|has_group:"seller" %}
+                            <div class="detail"><a href="{% url 'create_products' %}">
+                                <button>create product</button>
+                            </a>
+                            </div>
+                            {%endif%}
+                           
+                            <div class="detail"><a href="{% url 'logout' %}">
+                                <button class="btn-danger">Log out</button>
+                            </a>
+                            </div>
+
+                        </div>
+                    </div>{% else %}
+                    <i class="material-icons">
+                        account_circle
+                    </i>
+                    <div class="detail">
+                        Account
+                        <div class="sub"><a style="text-decoration: none" href="{% url 'signup' %}">
+                            <button>Sign UP/IN</button>
+                        </a></div>
+                    </div>
+
+                {% endif %}
+            </div>
+        </a>
+</nav>
+<br>

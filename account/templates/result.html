@@ -1,0 +1,64 @@
+
+<nav class="navbar">
+    <i class="material-icons menu-icon">
+        menu
+    </i>
+    <div class="logo">
+        <img src="https://github.com/subeshb1/GrabCheap/blob/master/img/logo_inverse.jpg?raw=true" alt="logo">
+        <div class="text"> RishiBaba ki dukan
+        </div>
+    </div>
+    <div class="item search right" tabindex="0">
+        <div class="search-group">
+            <select id="category-id">
+                <option value="">all</option>
+                {% for category in categories %}
+                    <option value="{{ category.name }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" placeholder="Search Prdoucts" name="search_name" id="search-box" required>
+            <i class="material-icons search-icon">
+                search
+            </i>
+        </div>
+    </div>
+
+    <div class="box stack-top" id="suggesstion-box">
+
+    </div>
+
+
+
+    <a href="" class="item">
+        <!-- Default dropleft button -->
+        <div class="btn-group dropleft">
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                <i class="material-icons">
+                    shopping_cart
+                </i>
+
+            </button>
+
+        </div>
+    </a>
+<a href="" class="  item">
+    <div></div>
+    <a/>
+ <a href="" class="  item">
+
+        <div class="group  bg-success">
+
+                <i class="material-icons">
+                account_circle
+            </i>
+                 <div class="detail">
+                Account
+                <div class="sub"> <a style="text-decoration: none" href="{% url 'signup' %}">Sign Up/In</a> </div>
+            </div>
+
+
+        </div>
+    </a>
+ </nav>
+<br>

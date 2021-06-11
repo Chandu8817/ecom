@@ -1,0 +1,86 @@
+{#<form action="{% url 'payment' %}" method="POST">#}
+{#  <script#}
+{#    src="https://checkout.stripe.com/checkout.js"#}
+{#    class="stripe-button"#}
+{#    data-key="pk_test_51ImWnySAF2GIiT99sJFhuKh0FIxgA3ZsmgzuaTr9KQ49eajJfuj5WTyaM0AQFiuuGxoVmK3JkUOJoGD1GW1nYUHl00UBpxOnIN"#}
+{#    data-name="Custom t-shirt"#}
+{#    data-customer="test"#}
+{#    data-address="demo"#}
+{#    data-description="Your custom designed t-shirt"#}
+{#    data-amount="{{ORDER_AMOUNT}}"#}
+{#    data-currency="inr">#}
+{#  </script>#}
+{#</form>#}
+
+
+<!-- templates/home.html -->
+
+{% load static %} <!-- new -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Django + Stripe Checkout</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <script src="{% static 'js/main.js' %}"></script>   <!-- new -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  </head>
+          <script src="https://js.stripe.com/v3/"></script>
+
+  <body>
+  <section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                Shipping Address
+                <p>{{ address.name }}</p>
+                <p>{{ address.address1 }}</p>
+                <p>{{ address.address1 }}</p>
+                <p>{{ address.city }}</p>
+                <p>{{ address.state }}</p>
+                <p>{{ address.mobile }}</p>
+
+            </div>
+            <div class="col-sm-5">
+                           <!-- Card -->
+                        <div class="card mb-4">
+                            <div class="card-body">
+
+                                <h5 class="mb-3">Order Summry</h5>
+
+
+                                <table class="table table-striped  table-responsive ">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Item</th>
+
+                                        <th scope="col">Amonut</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for order in order_item %}
+
+                                        <tr>
+                                            <td> {{ order.product.name }}</td>
+                                            <td id="price">₹ {{ order.product.price }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+
+{#                                <button type="submit" class="btn btn-primary btn-block waves-effect waves-light">Place Order#}
+{#                                </button>#}
+                                <button class="button is-primary" id="submitBtn">Purchase!</button>
+
+
+                            </div>
+                        </div>
+            </div>
+        </div>
+    </div>
+  </section>
+  </body>
+</html>
